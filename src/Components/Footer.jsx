@@ -12,7 +12,7 @@ export default function Footer() {
             <Link className="mx-1" to="/about">About</Link>
             <Link className="mx-1" to="/gallery">Gallery</Link>
           </div>
-          <div className="mb-2">Copyright &copy; 2023 Mario Granados</div>
+          <div className="mb-2">Copyright &copy; 2023 The CloudyDeveloper</div>
         </div>
       </Container>
     </>
