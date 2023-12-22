@@ -40,7 +40,7 @@ export default function ImageCard({ post }) {
       <Card style={{ width: "18rem", minHeight: "1rem", border: "none" }}>
         <Card.Img
           variant="top"
-          src={`http://localhost:4000/${post.postImage}`}
+          src={`${API_BASE_URL}/${post.postImage}`}
         />
         <Card.Body>
           <Card.Title>{post.title}</Card.Title>
