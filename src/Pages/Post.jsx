@@ -9,20 +9,21 @@ import { UserInfo } from "../UserInfo";
 import Button from "react-bootstrap/esm/Button";
 
 function Post() {
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const { id } = useParams();
   const [postData, setPostData] = useState("");
   const { userData } = useContext(UserInfo);
-  const [postUserInfo, setPostUserInfo] = useState("");
+  const [postUserInfo, setPostUserInfo] = useState(null);
+  
   useEffect(() => {
-    fetch(`${API_BASE_URL}/post/${id}`).then((res) =>
+    fetch(`${API_BASE_URL}/post/${id}`).then((res) => {
       res.json().then((data) => {
         setPostData(data);
         setPostUserInfo(data.author.username);
-      })
-    );
-  }, []);
+      });
+    });
+  }, [id, API_BASE_URL]);
 
   return (
     <>
@@ -37,13 +38,15 @@ function Post() {
             ;
           </Col>
           <Col>
-            <Card style={{border: 'none'}}>
+            <Card style={{ border: "none" }}>
               <Card.Body>
                 <Card.Title>Title: {postData.title} </Card.Title>
                 Description: {postData.content}
               </Card.Body>
-              {userData.username == postUserInfo ? (
-                <Button variant='secondary' href={`/edit/${id}`}>Edit</Button>
+              {userData.username === postUserInfo ? (
+                <Button variant="secondary" href={`/edit/${id}`}>
+                  Edit
+                </Button>
               ) : (
                 <></>
               )}
@@ -51,7 +54,6 @@ function Post() {
           </Col>
         </Row>
       </Container>
-
     </>
   );
 }

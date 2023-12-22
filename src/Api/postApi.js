@@ -1,21 +1,34 @@
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
 // **
-const editPosts = async (title, content, id, files) => {
+const editPosts = async (id, title, content, files, tags) => {
   const data = new FormData();
+  data.set("id", id);
   data.set("title", title);
   data.set("content", content);
-  data.set("id", id);
+  data.set("tags", tags);
 
-  if (files?.[0]) {
-    data.set("file", files?.[0]);
+  if (files && files[0]) {
+    data.append("file", files[0]);
   }
 
-  const response = await fetch(`${API_BASE_URL}/update`, {
-    method: "PUT",
-    body: data,
-    credentials: "include",
-  });
+  try {
+    const response = await fetch(`${API_BASE_URL}/post/update`, {
+      method: "PUT",
+      body: data,
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log("Post updated successfully:");
+  } catch (error) {
+    console.error("Error updating post:", error);
+  }
 };
+
 
 //** */
 async function fetchPosts() {
@@ -25,6 +38,7 @@ async function fetchPosts() {
     if (!response.ok) {
       throw new Error(`Failed to fetch posts. Status: ${response.status}`);
     }
+
 
     const data = await response.json();
 

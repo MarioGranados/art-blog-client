@@ -27,12 +27,12 @@ export default function EditPost() {
         setImage(data.postImage);
       })
     );
-  }, []);
+  }, [id, API_BASE_URL]);
 
   async function handleEditPost(e) {
     e.preventDefault();
     try {
-      await postApi.editPost(id, title, content, files);
+      await postApi.editPosts(id, title, content, files, ['tags']);
       setRedirect(true);
     } catch (error) {
       alert("Failed to edit post");
