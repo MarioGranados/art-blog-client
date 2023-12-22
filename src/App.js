@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.css";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
@@ -8,7 +7,7 @@ import Gallery from "./Pages/Gallery";
 import Upload from "./Pages/Upload";
 import Post from "./Pages/Post";
 import "bootstrap/dist/css/bootstrap.css";
-import { HashRouter as Router, Routes, Route } from "react-router-dom"; // Change here
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UserInfoProvider } from "./UserInfo";
 import EditPost from "./Pages/EditPost";
 import NavigationBar from "./Components/NavigationBar";
@@ -21,7 +20,7 @@ function App() {
   return (
     <>
       <UserInfoProvider>
-        <Router basename={process.env.REACT_APP_PUBLIC_URL}> {/* Change here */}
+        <BrowserRouter>
           <NavigationBar />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -38,10 +37,9 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
-        </Router>
+        </BrowserRouter>
       </UserInfoProvider>
     </>
   );
 }
-
 export default App;
