@@ -24,9 +24,11 @@ function NavigationBar() {
   }, []);
 
   function fetchUserProfile() {
-    const requestOptions = { credentials: "include" };
-
-    return fetch(`${API_BASE_URL}/user/profile`, requestOptions)
+    return fetch(`${API_BASE_URL}/user/profile`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    })
       .then((res) => {
         if (res.ok) {
           return res.json();
