@@ -29,13 +29,16 @@ export default function Login() {
     e.preventDefault();
     try {
       const userData = await postApi.loginUser(user.username, user.password);
-      setUserData(userData);
-      setRedirect(true);
+      if (userData) {
+        setUserData(userData);
+        setRedirect(true);
+      } else {
+        alert("login error");
+      }
     } catch (error) {
       alert("Failed to login");
     }
   }
-  
 
   if (redirect) {
     return <Navigate to={"/"} />;
