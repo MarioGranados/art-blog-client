@@ -50,7 +50,7 @@ async function fetchPosts() {
 /** */
 const loginUser = async (username, password) => {
   const res = await fetch(`${API_BASE_URL}/user/login`, {
-    method: "post",
+    method: "POST",
     body: JSON.stringify({
       username,
       password,
