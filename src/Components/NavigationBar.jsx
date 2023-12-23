@@ -122,10 +122,8 @@ function NavigationBar() {
                   </>
                 )}
 
-                {!userData.username && (
-                  <>
-                    <Nav.Link href="/login">Login</Nav.Link>
-                  </>
+                {(!userData || !userData.username) && (
+                  <Nav.Link href="/login">Login</Nav.Link>
                 )}
 
                 <Nav.Link href="/gallery">Gallery</Nav.Link>
