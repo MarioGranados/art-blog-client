@@ -76,7 +76,58 @@ function NavigationBar() {
             aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
             placement="end"
           >
-            {/* ... (unchanged) */}
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
+                MyArtStuff
+              </Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <Nav className="justify-content-end flex-grow-1 pe-3">
+                <Form className="d-flex flex-grow-1">
+                  <Form.Control
+                    type="search"
+                    placeholder="Search"
+                    className="me-2"
+                    aria-label="Search"
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    value={searchInput}
+                  />
+                  <Button
+                    variant="outline-success"
+                    onClick={handleSearchSubmit}
+                  >
+                    Search
+                  </Button>
+                </Form>
+                {userData.username && (
+                  <>
+                    <NavDropdown
+                      title="Profile"
+                      id={`offcanvasNavbarDropdown-expand-${expand}`}
+                    >
+                      <NavDropdown.Item href="/profile/edit">
+                        Edit Profile
+                      </NavDropdown.Item>
+                      <NavDropdown.Item href="/profile/analytics">
+                        Analytics
+                      </NavDropdown.Item>
+                      <NavDropdown.Divider />
+                      <NavDropdown.Item>
+                        <Button onClick={handleLogout}>Log Out</Button>
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                    <Nav.Link href="/upload">Upload</Nav.Link>
+                  </>
+                )}
+                {!userData.username && (
+                  <>
+                    <Nav.Link href="/login">Login</Nav.Link>
+                  </>
+                )}
+
+                <Nav.Link href="/gallery">Gallery</Nav.Link>
+              </Nav>
+            </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
