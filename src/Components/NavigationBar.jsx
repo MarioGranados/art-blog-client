@@ -101,7 +101,7 @@ function NavigationBar() {
                     Search
                   </Button>
                 </Form>
-                {userData.username && (
+                {userData && userData.username && (
                   <>
                     <NavDropdown
                       title="Profile"
@@ -121,6 +121,7 @@ function NavigationBar() {
                     <Nav.Link href="/upload">Upload</Nav.Link>
                   </>
                 )}
+
                 {!userData.username && (
                   <>
                     <Nav.Link href="/login">Login</Nav.Link>
