@@ -16,27 +16,6 @@ function NavigationBar() {
   const [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    let isMounted = true;
-
-    // Fetch user profile on component mount
-    postApi
-      .fetchUserProfile()
-      .then((userData) => {
-        if (isMounted) {
-          setUserData(userData);
-        }
-      })
-      .catch((error) => {
-        console.error("Failed to fetch user profile:", error);
-      });
-
-    // Cleanup function to set isMounted to false when component unmounts
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
   async function handleLogout() {
     try {
       const result = await postApi.logoutUser();
