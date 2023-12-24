@@ -12,7 +12,6 @@ const PrivateRoute = () => {
     const fetchUserData = async () => {
       try {
         const user = await postApi.fetchUserProfile();
-        console.log('user +' + JSON.stringify(user))
         setUserData(user)
         setLoading(false);
       } catch (error) {
