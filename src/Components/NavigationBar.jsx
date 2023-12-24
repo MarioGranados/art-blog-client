@@ -6,7 +6,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import { useUserInfo } from "../UserInfoContext";
 import postApi from "../Api/postApi";
@@ -14,6 +14,7 @@ import postApi from "../Api/postApi";
 function NavigationBar() {
   const { setUserData, userData } = useUserInfo();
   const [searchInput, setSearchInput] = useState("");
+  const [redirect, setRedirect] = useState(false)
   const navigate = useNavigate();
 
   async function handleLogout() {
@@ -23,7 +24,7 @@ function NavigationBar() {
       if (result.success) {
         // Clear user data and navigate to the login page
         setUserData(null);
-        navigate("/login");
+        setRedirect(true)
       } else {
         // Handle the error
         console.error("Logout failed:", result.error);
@@ -40,6 +41,10 @@ function NavigationBar() {
   };
 
   const expand = "md";
+
+  if(redirect) {
+    return <Navigate to={'/login'}/>
+  }
 
   return (
     <>
