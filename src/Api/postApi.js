@@ -16,6 +16,7 @@ const editPosts = async (id, title, content, files, tags) => {
       method: "PUT",
       body: data,
       credentials: "include",
+      mode: 'cors'
     });
 
     if (!response.ok) {
@@ -56,6 +57,7 @@ const loginUser = async (username, password) => {
     }),
     headers: { "Content-Type": "application/json" },
     credentials: "include",
+    mode: 'cors',
   });
 
   if (res.ok) {
@@ -128,6 +130,7 @@ const verifyUser = async (verificationCode) => {
       body: JSON.stringify({ verificationCode }),
       headers: { "Content-Type": "application/json" },
       credentials: "include",
+      mode: 'cors'
     });
 
     if (response.ok) {
@@ -148,6 +151,7 @@ async function logoutUser() {
     const response = await fetch(`${API_BASE_URL}/user/logout`, {
       credentials: "include",
       method: "post",
+      mode: 'cors'
     });
 
     // Check if the response is okay
@@ -171,6 +175,7 @@ async function fetchUserProfile() {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
+      mode: 'cors'
     });
 
     if (response.ok) {
