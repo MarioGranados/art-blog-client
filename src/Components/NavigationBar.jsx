@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -8,39 +8,34 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useNavigate } from "react-router-dom";
 
-import { UserInfo } from "../UserInfo";
+import { useUserInfo } from "../UserInfoContext";
 import postApi from "../Api/postApi";
 
 function NavigationBar() {
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
-  const { setUserData, userData } = useContext(UserInfo);
+  const { setUserData, userData } = useUserInfo();
   const [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch user profile on component mount
-    fetchUserProfile();
-  }, []);
+    let isMounted = true;
 
-  function fetchUserProfile() {
-    return fetch(`${API_BASE_URL}/user/profile`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return null;
+    // Fetch user profile on component mount
+    postApi
+      .fetchUserProfile()
+      .then((userData) => {
+        if (isMounted) {
+          setUserData(userData);
         }
       })
-      .then((userData) => setUserData(userData))
       .catch((error) => {
-        console.error("failed to fetch: ", error);
+        console.error("Failed to fetch user profile:", error);
       });
-  }
+
+    // Cleanup function to set isMounted to false when component unmounts
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   async function handleLogout() {
     try {
@@ -48,7 +43,7 @@ function NavigationBar() {
       // Check if the logout was successful
       if (result.success) {
         // Clear user data and navigate to the login page
-        setUserData("");
+        setUserData(null);
         navigate("/login");
       } else {
         // Handle the error

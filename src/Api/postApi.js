@@ -33,12 +33,11 @@ const editPosts = async (id, title, content, files, tags) => {
 //** */
 async function fetchPosts() {
   try {
-    const response = await fetch(`${API_BASE_URL}/post`);
+    const response = await fetch(`${API_BASE_URL}/post`, {credentials: 'include'});
 
     if (!response.ok) {
       throw new Error(`Failed to fetch posts. Status: ${response.status}`);
     }
-
 
     const data = await response.json();
 
@@ -165,6 +164,27 @@ async function logoutUser() {
   }
 }
 
+
+async function fetchUserProfile() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/user/profile`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    });
+
+    if (response.ok) {
+      return response.json();
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error("failed to fetch: ", error);
+    throw error; // Propagate the error to the caller
+  }
+}
+
+
 const postApi = {
   editPosts,
   fetchPosts,
@@ -173,7 +193,8 @@ const postApi = {
   fetchSearchedPosts,
   uploadPost,
   verifyUser,
-  logoutUser
+  logoutUser,
+  fetchUserProfile,
 };
 
 export default postApi;

@@ -8,7 +8,7 @@ import Upload from "./Pages/Upload";
 import Post from "./Pages/Post";
 import "bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { UserInfoProvider } from "./UserInfo";
+import { UserInfoProvider } from "./UserInfoContext";
 import EditPost from "./Pages/EditPost";
 import NavigationBar from "./Components/NavigationBar";
 import Footer from "./Components/Footer";

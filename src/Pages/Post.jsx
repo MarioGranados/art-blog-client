@@ -1,19 +1,19 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Image from "react-bootstrap/Image";
 import Container from "react-bootstrap/esm/Container";
 import Card from "react-bootstrap/esm/Card";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
-import { UserInfo } from "../UserInfo";
 import Button from "react-bootstrap/esm/Button";
+import { useUserInfo } from "../UserInfoContext";
 
 function Post() {
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const { id } = useParams();
   const [postData, setPostData] = useState("");
-  const { userData } = useContext(UserInfo);
+  const { userData } = useUserInfo();
   const [postUserInfo, setPostUserInfo] = useState(null);
   
   useEffect(() => {
@@ -43,7 +43,7 @@ function Post() {
                 <Card.Title>Title: {postData.title} </Card.Title>
                 Description: {postData.content}
               </Card.Body>
-              {userData.username === postUserInfo ? (
+              {userData?.username === postUserInfo ? (
                 <Button variant="secondary" href={`/edit/${id}`}>
                   Edit
                 </Button>
