@@ -27,7 +27,6 @@ const PrivateRoute = () => {
   if (loading) {
     return <p>Loading...</p>;
   }
-  console.log('outlet: '  + JSON.stringify(userData))
 
   // Render the component if the user is authenticated
   return userData ? <Outlet /> : <Navigate to="/login" />;
