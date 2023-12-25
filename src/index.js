@@ -12,8 +12,7 @@ root.render(
   <React.StrictMode>
     <UserInfoProvider>
       <BrowserRouter>
-        {/* <App /> */}
-        hello world
+        <App />
       </BrowserRouter>
     </UserInfoProvider>
   </React.StrictMode>
